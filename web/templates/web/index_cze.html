@@ -51,6 +51,7 @@
 	<side_bar>
 		<div class="search_form">
 			<fieldset>
+                {% csrf_token %}
 				<input type="text" name="searched_text" size="10" maxlength="20" id="searched_text" />
 				<button type="submit" id="button_search">Hledej</button>
 				<select id="language">
