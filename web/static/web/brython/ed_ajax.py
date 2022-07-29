@@ -9,7 +9,10 @@ def on_complete(req):
 def ajax_post(button_search):
 	document["results"].html = "Loading..."
 	ajax.post("/searchengine",
-			  headers={"Content-Type": "application/x-www-form-urlencoded"},
+			  headers={"Content-Type": "application/x-www-form-urlencoded",
+                       "X-CSRFToken": document["csrftoken"].value,
+                       "mode": "same-origin"
+                      },
 			  data={"language": document["language"].value,
 					"searched_text": document["searched_text"].value,
 					"fulltext": document["fulltext"].checked
