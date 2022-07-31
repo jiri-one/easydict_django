@@ -9,7 +9,7 @@ form.onsubmit = function (event) {
         }).then(async function (response) {
             let data = await response.text();
             if (response.ok == true) {
-                document.getElementById('results').innerText = data;
+                document.getElementById('results').innerHTML = data;
             } else {
                 document.getElementById('results').innerText = "There is some error: " + data
             }

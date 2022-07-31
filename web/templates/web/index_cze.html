@@ -50,7 +50,7 @@
         {% csrf_token %}
 		<div class="search_form">
             <fieldset>
-				<input type="text" name="searched_text" size="10" maxlength="20" id="searched_text" />
+				<input type="text" name="searched_text" size="10" maxlength="20" id="searched_text" required/>
 				<button type="submit" id="button_search">Hledej</button>
 				<select name="language" id="language">
 					<option>Anglicky</option>

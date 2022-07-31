@@ -1,5 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from .helpers import db_search
+
 
 
 def index_cze(request):
@@ -15,10 +17,9 @@ def search(request):
         searched_text = request.POST.get('searched_text')
         language = request.POST.get('language')
         fulltext = request.POST.get('optionsRadios')
-        print(request.POST)
-        return HttpResponse("Here's the text of the web page.")
-    else:
-        return render(request, None)
+        results = db_search(language, searched_text, fulltext)
+        return HttpResponse(results)
+
 
 
 def csrf_failure(request, reason=""):
