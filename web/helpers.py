@@ -2,15 +2,18 @@ from .models import Record
 import difflib
 
 def db_search(language, text, fulltext):
+    if fulltext == "whole_word":
+        text_for_pqsql = rf'\y{text}\y'
+    else:
+        text_for_pqsql = text
+    
     if language == "Anglicky" or language == "English":
         language = "eng"
-        results = Record.objects.filter(eng__search=text).values()
+        results = Record.objects.filter(eng__search=text_for_pqsql).values()
     elif language == "Česky" or language == "Czech":
         language = "cze"
-        results = Record.objects.filter(cze__search=text).values()
+        results = Record.objects.filter(cze__search=text_for_pqsql).values()
 
-    # if fulltext == False:
-    #     text = rf'\b{text}\b'
     results_with_matchratio = []
     for result in results:
         ratio = difflib.SequenceMatcher(None, result[language], text).ratio()
