@@ -1,22 +1,25 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from django.template import loader
 
 
 def index_cze(request):
-    request.META['CSRF_COOKIE_USED'] = True
-    template = loader.get_template('web/index_cze.html')
-    return HttpResponse(template.render({}, request))
+    return render(request, 'web/index_cze.html')
 
 
 def index_eng(request):
-    request.META['CSRF_COOKIE_USED'] = True
-    template = loader.get_template('web/index_eng.html')
-    return HttpResponse(template.render({}, request))
+    return render(request, 'web/index_eng.html')
 
 
-def searchengine(request):
-    print("pred if")
-    request.META['CSRF_COOKIE_USED'] = True
+def search(request):
     if request.method == 'POST':
-        print("test")
+        searched_text = request.POST.get('searched_text')
+        language = request.POST.get('language')
+        fulltext = request.POST.get('optionsRadios')
+        print(request.POST)
+        return HttpResponse("Here's the text of the web page.")
+    else:
+        return render(request, None)
+
+
+def csrf_failure(request, reason=""):
+    print(request, reason)

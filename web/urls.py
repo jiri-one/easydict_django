@@ -6,5 +6,5 @@ urlpatterns = [
     path('', views.index_cze, name='index_cze'),
     path('cze', views.index_cze, name='index_cze'),
     path('eng', views.index_eng, name='index_eng'),
-    path('searchengine', views.searchengine, name='searchengine'),
+    path('search', views.search, name='search'),
 ]
