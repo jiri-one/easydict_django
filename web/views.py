@@ -1,18 +1,20 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from django.template import loader
+from .helpers import db_search
 
 
 def index_cze(request):
-    template = loader.get_template('web/index_cze.html')
-    if request.method == "POST":
-        return print("test")
-    return HttpResponse(template.render())
+    return render(request, 'web/index_cze.html')
+
 
 def index_eng(request):
-    template = loader.get_template('web/index_eng.html')
-    return HttpResponse(template.render())
+    return render(request, 'web/index_eng.html')
 
-def searchengine(request):
+
+def search(request):
     if request.method == 'POST':
-        print("test")
+        searched_text = request.POST.get('searched_text')
+        language = request.POST.get('language')
+        fulltext = request.POST.get('optionsRadios')
+        results = db_search(language, searched_text, fulltext)
+        return HttpResponse(results)
