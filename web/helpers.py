@@ -22,8 +22,8 @@ def db_search(language, text, fulltext):
 
 class CreateHtml:
     def __init__(self, results, language):
-        self.language = language
-        self.second_language = [lang for lang in ["cze", "eng"] if lang != language][0]
+        self.lng1 = language
+        self.lng2 = [lang for lang in ["cze", "eng"] if lang != language][0]
         self.html_string = ""
         for row in results:
             self.html_string = self.html_string + self.create_html(row[0]) # zero is here bacause index 1 is matchratio
@@ -32,18 +32,18 @@ class CreateHtml:
         return self.html_string
             
     def create_html(self, row):
-        if "notes" in row.keys():
-            self.notes =  ", " + row["notes"]
+        if (note := f"{row[f'notes_{self.lng2}']}") != "None":
+            notes =  ", " + note
         else:
-            self.notes = ""
-        if "special" in row.keys():
-            self.special = ", "  + row["special"]
+            notes = ""
+        if (spec := f"{row[f'special_{self.lng2}']}") != "None":
+            special =  ", " + spec
         else:
-            self.special = ""        
+            special = ""        
     
         html = f"""
-        <p>{row[self.language]}</b>
-        <br>&emsp;{row[self.second_language]}{self.notes}{self.special}<hr />
+        <p>{row[self.lng1]}</b>
+        <br>&emsp;{row[self.lng2]}{notes}{special}<hr />
         </p>
         """
         return html
