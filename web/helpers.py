@@ -33,11 +33,11 @@ class CreateHtml:
             
     def create_html(self, row):
         if (note := f"{row[f'notes_{self.lng2}']}") != "None":
-            notes =  ", " + note
+            notes =  " | " + note
         else:
             notes = ""
         if (spec := f"{row[f'special_{self.lng2}']}") != "None":
-            special =  ", " + spec
+            special =  " | " + spec
         else:
             special = ""        
     
